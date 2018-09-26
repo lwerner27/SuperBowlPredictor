@@ -48,6 +48,25 @@ class App extends Component {
       {name: "Jaguars", path: "/assets/images/jaguars.jpg"},
       {name: "Texans", path: "/assets/images/texans.jpg"}
     ],
+    userPicks: []
+  }
+
+  handleClick(teamName) {
+    console.log(teamName)
+    let userPicks = this.state.userPicks
+    if (teamName === this.state.teamOne.name) {
+      userPicks.push({teamOne: this.state.teamOne.name, teamTwo: this.state.teamTwo.name, winner: this.state.teamOne.name})
+      this.setState(userPicks, () => {
+        console.log(this.state.userPicks)
+        this.getRandomTeams(this.state.teams)
+      })
+    } else {  
+      userPicks.push({teamOne: this.state.teamOne.name, teamTwo: this.state.teamTwo.name, winner: this.state.teamTwo.name})
+      this.setState(userPicks, () => {
+        console.log(this.state.userPicks)
+        this.getRandomTeams(this.state.teams)
+      })
+    }
   }
 
   // Randomly chooses two teams removes them from the array
@@ -86,7 +105,7 @@ class App extends Component {
         <br/>
         <br/>
         <br/>
-        { this.state.teamOne && this.state.teamTwo ? <MatchupContainer teamOne={this.state.teamOne} teamTwo={this.state.teamTwo} /> : null }
+        { this.state.teamOne && this.state.teamTwo ? <MatchupContainer handleClick={this.handleClick.bind(this)} teamOne={this.state.teamOne} teamTwo={this.state.teamTwo} /> : null }
 
       </div>
     );
