@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Navbar from './components/navbar'
-import TeamContainer from "./components/team"
+import MatchupContainer from './components/matchup';
 
 class App extends Component {
 
@@ -65,16 +65,13 @@ class App extends Component {
       teams: teams
     }
 
-    return data
+    this.setState(data)
     
   }
 
   componentDidMount() {
-    let newInfo = this.getRandomTeams(this.state.teams)
+    this.getRandomTeams(this.state.teams)
 
-    this.setState(newInfo, () => {
-      console.log(this.state)
-    })
   }
 
   render() {
@@ -82,6 +79,10 @@ class App extends Component {
       <div>
 
         <Navbar />
+        <br/>
+        <br/>
+        <br/>
+        { this.state.teamOne && this.state.teamTwo ? <MatchupContainer teamOne={this.state.teamOne[0]} teamTwo={this.state.teamTwo[0]} /> : null }
 
       </div>
     );
