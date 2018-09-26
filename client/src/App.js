@@ -51,13 +51,15 @@ class App extends Component {
   }
 
   // Randomly chooses two teams removes them from the array
-  // Then returns the two teams and the updated array
+  // Then updates the state with the two selected teams and remaining unused teams
   getRandomTeams(teams) {
     let numberOne = Math.floor(Math.random() * teams.length)
-    let teamOne = teams.splice(numberOne, 1)
+    let teamOne = teams[numberOne]
+    teams.splice(numberOne, 1)
 
     let numberTwo = Math.floor(Math.random() * teams.length)
-    let teamTwo = teams.splice(numberTwo, 1)
+    let teamTwo = teams[numberTwo]
+    teams.splice(numberTwo, 1)
 
     let data = {
       teamOne: teamOne,
@@ -65,7 +67,9 @@ class App extends Component {
       teams: teams
     }
 
-    this.setState(data)
+    this.setState(data, () => {
+      console.log(this.state)
+    })
     
   }
 
@@ -82,7 +86,7 @@ class App extends Component {
         <br/>
         <br/>
         <br/>
-        { this.state.teamOne && this.state.teamTwo ? <MatchupContainer teamOne={this.state.teamOne[0]} teamTwo={this.state.teamTwo[0]} /> : null }
+        { this.state.teamOne && this.state.teamTwo ? <MatchupContainer teamOne={this.state.teamOne} teamTwo={this.state.teamTwo} /> : null }
 
       </div>
     );
