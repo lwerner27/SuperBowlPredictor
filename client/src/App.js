@@ -51,19 +51,19 @@ class App extends Component {
     userPicks: []
   }
 
+  // Handles the users click on one of the two teams
+  // Determines if they user chose team one or team two
+  // Add the selection info the userPicks array in state
   handleClick(teamName) {
-    console.log(teamName)
     let userPicks = this.state.userPicks
     if (teamName === this.state.teamOne.name) {
       userPicks.push({teamOne: this.state.teamOne.name, teamTwo: this.state.teamTwo.name, winner: this.state.teamOne.name})
       this.setState(userPicks, () => {
-        console.log(this.state.userPicks)
         this.getRandomTeams(this.state.teams)
       })
     } else {  
       userPicks.push({teamOne: this.state.teamOne.name, teamTwo: this.state.teamTwo.name, winner: this.state.teamTwo.name})
       this.setState(userPicks, () => {
-        console.log(this.state.userPicks)
         this.getRandomTeams(this.state.teams)
       })
     }
@@ -86,12 +86,10 @@ class App extends Component {
       teams: teams
     }
 
-    this.setState(data, () => {
-      console.log(this.state)
-    })
-    
+    this.setState(data)
   }
 
+  // When the component loads it gets two random teams and updates the state
   componentDidMount() {
     this.getRandomTeams(this.state.teams)
 
