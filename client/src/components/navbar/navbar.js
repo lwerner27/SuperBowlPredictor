@@ -8,7 +8,7 @@ const styles = {
 class Navbar extends React.Component {
     render() {
         return (
-            <AppBar title="Super Bowl Predictor" style={styles} showMenuIconButton={false} />
+            <AppBar title="Super Bowl Predictor" color="default" style={styles} showMenuIconButton={false} />
         )
     }
 }

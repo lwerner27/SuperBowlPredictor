@@ -72,6 +72,11 @@ class App extends Component {
   // Randomly chooses two teams removes them from the array
   // Then updates the state with the two selected teams and remaining unused teams
   getRandomTeams(teams) {
+    if (teams.length === 0) {
+      this.submitPicks(this.state.userPicks,() => {
+        console.log("Your picks have been submitted please refresh and submit more if you would like.")
+      })
+    }
     let numberOne = Math.floor(Math.random() * teams.length)
     let teamOne = teams[numberOne]
     teams.splice(numberOne, 1)
@@ -89,10 +94,17 @@ class App extends Component {
     this.setState(data)
   }
 
-  // When the component loads it gets two random teams and updates the state
-  componentDidMount() {
-    this.getRandomTeams(this.state.teams)
+  submitPicks(userPicks, cbFunc) {
+    console.log(userPicks)
+    cbFunc()
+  }
 
+  // When the component loads it gets two random teams and updates the state
+  // It will also save a copy of all the teams data to localStorage
+  componentDidMount() {
+    let allTeams = JSON.stringify(this.state.teams)
+    localStorage.setItem("allTeams", allTeams)
+    this.getRandomTeams(this.state.teams)
   }
 
   render() {
