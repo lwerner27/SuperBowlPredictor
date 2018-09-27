@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from './components/navbar'
 import MatchupContainer from './components/matchup';
+import axios from "axios"
 
 class App extends Component {
 
@@ -73,9 +74,7 @@ class App extends Component {
   // Then updates the state with the two selected teams and remaining unused teams
   getRandomTeams(teams) {
     if (teams.length === 0) {
-      this.submitPicks(this.state.userPicks,() => {
-        console.log("Your picks have been submitted please refresh and submit more if you would like.")
-      })
+      this.submitPicks()
     }
     let numberOne = Math.floor(Math.random() * teams.length)
     let teamOne = teams[numberOne]
@@ -94,9 +93,15 @@ class App extends Component {
     this.setState(data)
   }
 
-  submitPicks(userPicks, cbFunc) {
-    console.log(userPicks)
-    cbFunc()
+  submitPicks() {
+    axios.post("/api/sbp/submitMatchups", {
+      userPicks: this.state.userPicks
+    }).then((res) => {
+      if (res.status === 200) {
+        alert("Thanks for submitting your picks refresh to add more!")
+      }
+    })
+    .catch((err) => console.log(err))
   }
 
   // When the component loads it gets two random teams and updates the state

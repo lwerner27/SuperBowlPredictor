@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require("mongoose")
 const bodyParser = require('body-parser')
 const path = require('path')
+const routes = require("./routes")
 
 const PORT = 8080
 
@@ -10,6 +11,7 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'client/public')));
+app.use(routes)
 
 // Connect to the Mongo DB
 mongoose.connect(
